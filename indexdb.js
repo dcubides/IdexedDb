@@ -124,11 +124,17 @@ function cargarEventos () {
 
 async function consultarData () {
     let idConsulta = document.getElementById('idregistro').value;
+	let loading = document.getElementById('Loading');
+	loading.style.display = 'inline-block';
     if(idConsulta != "") {
         await get(parseInt(idConsulta, 10), func);
     } else {
         await getAll(func);
     }
+	setTimeout(function(){ 
+		loading.style.display = 'none';
+	}, 2000)
+	
 };
 
 function guardarData() {
@@ -140,7 +146,7 @@ function guardarData() {
     descripciong = document.getElementById('descripcion').value;
     valorg = document.getElementById('valor').value;
 
- // for(var i = 0; i <= 1000; i++){
+  //for(var i = 0; i <= 1000; i++){
     add({
         nombres: nombreg, //+ i,
         descripcion: descripciong,// + i,
@@ -156,15 +162,16 @@ function eliminarDato(id) {
     getAll(func);
 }
 
+obtData = function(result){		///verificar datos para actulizar 
+	//if (columna === "1") {
+		//up({nombres:valor, descripcion: result.descripcion, valor: result.valor,  id:idgurdar});
+	//}
 
-function actulizarData(id, item) {
+};
+
+async function actulizarData(id, columna, valor) {
     let idgurdar = id;
-    let nombre = document.getElementById('nombreCrud'+item).value;
-    let desc = document.getElementById('descCrud'+item).value;
-    let valor = document.getElementById('valorCrud'+item).value;
-
-    up({nombres:nombre, descripcion: desc, valor: parseFloat(valor), id:idgurdar});
-    get(id, func);
+	await get(id, obtData(columna, valor));///verificar datos para actulizar 
 }
 
 function pintarTabla(objeto) {
@@ -172,29 +179,51 @@ function pintarTabla(objeto) {
     var body = document.getElementById('tablaDatosbody');
     var campos = '';
 
-    if (typeof objeto === 'object' && !Array.isArray(objeto) && objeto !== null) {
+	if (typeof objeto === 'object' && !Array.isArray(objeto) && objeto !== null) {
         campos += "<tr>";
         campos += "<td>" + objeto.id + "</td>";
-        campos += "<td><input type='text' class='form-control'  value='" + objeto.nombres + "' id='nombreCrud'/></td>";
-        campos += "<td><input type='text' class='form-control'  value='" + objeto.descripcion + "' id='descCrud'/></td>";
-        campos += "<td><input type='number' class='form-control'  value='" + objeto.valor + "' id='valorCrud'/></td>";
+        campos += "<td id='start'>" + objeto.nombres + "</td>";
+        campos += "<td>" + objeto.descripcion + "</td>";
+        campos += "<td>" + objeto.valor + "</td>";
         campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto.id + ")'><i class='bi bi-x-square'></i>Eliminar</button><button type='button' class='btn btn-primary' onclick='actulizarData(" + objeto.id + ", '')'><i class='bi bi-x-square'></i>Actulizar</button></td>";
         campos += "</tr>"
     } else {
         for (var i = 0; i < objeto.length ; i++ ) {
             campos += "<tr>";
-            campos += "<td>" + objeto[i].id + "</td>";
-            campos += "<td><input type='text' class='form-control'  value='" + objeto[i].nombres + "'     id='nombreCrud"+[i]+"'/></td>";
-            campos += "<td><input type='text' class='form-control'  value='" + objeto[i].descripcion + "' id='descCrud"+[i]+"'/></td>";
-            campos += "<td><input type='number' class='form-control'  value='" + objeto[i].valor + "' id='valorCrud"+[i]+"'/></td>";
-            campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto[i].id + ")'><i class='bi bi-x-square'></i>Eliminar</button><button type='button' class='btn btn-primary' onclick='actulizarData(" + objeto[i].id + ", "+[i]+")'><i class='bi bi-x-square'></i>Actulizar</button></td>";
+            campos += "<td id='start"+[i]+"' idobjeto='" + objeto[i].id + "' tdMod='1'>" + objeto[i].nombres + "</td>";
+            campos += "<td                   idobjeto='" + objeto[i].id + "' tdMod='2'>" + objeto[i].descripcion + "</td>";
+            campos += "<td 					 idobjeto='" + objeto[i].id + "' tdMod='3'>" + objeto[i].valor + "</td>";
+            campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto[i].id + ")'><i class='bi bi-x-square'></i>Eliminar</button></td>";
             campos += "</tr>"
         }
     }
     
+
+    // if (typeof objeto === 'object' && !Array.isArray(objeto) && objeto !== null) {
+    //     campos += "<tr>";
+    //     campos += "<td>" + objeto.id + "</td>";
+    //     campos += "<td><input type='text' class='form-control'  value='" + objeto.nombres + "' id='nombreCrud'/></td>";
+    //     campos += "<td><input type='text' class='form-control'  value='" + objeto.descripcion + "' id='descCrud'/></td>";
+    //     campos += "<td><input type='number' class='form-control'  value='" + objeto.valor + "' id='valorCrud'/></td>";
+    //     campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto.id + ")'><i class='bi bi-x-square'></i>Eliminar</button><button type='button' class='btn btn-primary' onclick='actulizarData(" + objeto.id + ", '')'><i class='bi bi-x-square'></i>Actulizar</button></td>";
+    //     campos += "</tr>"
+    // } else {
+    //     for (var i = 0; i < objeto.length ; i++ ) {
+    //         campos += "<tr>";
+    //         campos += "<td>" + objeto[i].id + "</td>";
+    //         campos += "<td><input type='text' class='form-control'  value='" + objeto[i].nombres + "'     id='nombreCrud"+[i]+"'/></td>";
+    //         campos += "<td><input type='text' class='form-control'  value='" + objeto[i].descripcion + "' id='descCrud"+[i]+"'/></td>";
+    //         campos += "<td><input type='number' class='form-control'  value='" + objeto[i].valor + "' id='valorCrud"+[i]+"'/></td>";
+    //         campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto[i].id + ")'><i class='bi bi-x-square'></i>Eliminar</button><button type='button' class='btn btn-primary' onclick='actulizarData(" + objeto[i].id + ", "+[i]+")'><i class='bi bi-x-square'></i>Actulizar</button></td>";
+    //         campos += "</tr>"
+    //     }
+    // }
+    
     
 
     body.innerHTML = campos;
-
+	manejarCampos();
 }
+
+
 
