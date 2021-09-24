@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./src/scripts/jquery-1.7.js"></script>
+    <script src="./controlInputs.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <style type="text/css">
+      .cell-focus {
+        background-color: green !important;
+        color: white;
+      }
+      
+      td, th{
+        white-space: nowrap;
+      }
+      .containerTable {
+        width: 100em;
+        height: 40em;
+        overflow-x: auto;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+   
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="./src/img/LogoAyF.png" alt="" width="35" height="35" class="d-inline-block align-text-top">
+            Proyecto Caja Menor
+          </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.htm">Caja menor</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="documentoycuenta.html">Documento y cuenta</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+
+    </br>
+    
+    <div class="container">
+        <h1>Informe movimiento por documento y cuenta - IdexedDB</h1>
+    </br></br>
+        <div class="row">
+            <div class="col-sm-4" class="container">
+                <form>
+                    <div class="form-group">
+                        <label for="idregistro">Id</label>
+                        <input type="text" class="form-control" id="idregistro"  placeholder="Id solo busqueda">
+                      </div>
+                  </form>
+                </br>
+                <button id="btnConsultar" class="btn btn-primary">Consultar</button>
+               <button id="btnGuardar" class="btn btn-primary">Cargar</button>
+            </br></br>
+            </div>
+        </br></br>
+        <div class="text-center" id="Loading" style="display: none">
+          <div class="clearfix">
+            <div class="spinner-border float-right" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+    
+    </br></br>
+            <div class="col-sm-12 containerTable">
+               <div id="tablaDatos"></div>
+               <table id="example" class="table table-bordered table-dark table-sm table-responsive" style="width:100%">
+                   <thead>
+                       <tr>
+                           <th>Id</th>
+                           <th>Tipo Registro</th>
+                           <th>Cuenta </br> contable</th>
+                           <th>Cuenta contable </br> nombre</th>
+                           <th>Id Interno </th>
+                           <th>Tipo Doc</th>
+                           <th>Consecutivo</th>
+                           <th>Fecha</th>
+                           <th>Centro </br> costos</th>
+                           <th>Nit</th>
+                           <th>Tercero</th>
+                           <th>Débito</th>
+                           <th>Crédito</th>
+                           <th>Saldo</th>
+                           <th>Concepto</th>
+                       </tr>
+                       <tbody id="tablaDatosbody">
+
+                       </tbody>
+                   </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./documentoycuenta.js"></script>
+</body>
+</html>

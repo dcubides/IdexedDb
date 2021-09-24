@@ -193,7 +193,7 @@ function pintarTabla(objeto) {
             campos += "<td id='start"+[i]+"' idobjeto='" + objeto[i].id + "' tdMod='1'>" + objeto[i].nombres + "</td>";
             campos += "<td                   idobjeto='" + objeto[i].id + "' tdMod='2'>" + objeto[i].descripcion + "</td>";
             campos += "<td 					 idobjeto='" + objeto[i].id + "' tdMod='3'>" + objeto[i].valor + "</td>";
-            campos += "<td><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto[i].id + ")'><i class='bi bi-x-square'></i>Eliminar</button></td>";
+            campos += "<td class='text-center'><button type='button' class='btn btn-danger' onclick='eliminarDato(" + objeto[i].id + ")'><i class='bi bi-x-square'></i>Eliminar</button></td>";
             campos += "</tr>"
         }
     }
